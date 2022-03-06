@@ -30,6 +30,8 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'elzr/vim-json'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ryanoasis/vim-devicons'
+Plug 'puremourning/vimspector'
 
 set encoding=UTF-8
 
@@ -48,7 +50,6 @@ colorscheme palenight
 let g:indent_guides_auto_colors = 0
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 "
-wincmd l
 
 " Git Gutter
 highlight GitGutterAdd guifg=#009900 ctermfg=Green
@@ -61,6 +62,16 @@ au VimEnter * wincmd l
 
 map <Space>gg :Grepper
 let g:syntastic_python_checkers = ['pylint']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+autocmd BufWinEnter *.py nmap <silent> <F5>:w<CR>:terminal python3 -m pdb '%:p'<CR>
 
 if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
